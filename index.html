@@ -1,40 +1,2035 @@
 <!doctype html>
 <html>
-	<head>
-		<meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-		<title>reveal.js</title>
+    <title>The When of Python - KiwiPycon 2022</title>
 
-		<link rel="stylesheet" href="dist/reset.css">
-		<link rel="stylesheet" href="dist/reveal.css">
-		<link rel="stylesheet" href="dist/theme/black.css">
+    <link rel="stylesheet" href="dist/reset.css">
+    <link rel="stylesheet" href="dist/reveal.css">
+    <link rel="stylesheet" href="dist/theme/night.css">
 
-		<!-- Theme used for syntax highlighted code -->
-		<link rel="stylesheet" href="plugin/highlight/monokai.css">
-	</head>
-	<body>
-		<div class="reveal">
-			<div class="slides">
-				<section>Slide 1</section>
-				<section>Slide 2</section>
-			</div>
-		</div>
+    <!-- Theme used for syntax highlighted code -->
+    <link rel="stylesheet" href="plugin/highlight/monokai.css">
 
-		<script src="dist/reveal.js"></script>
-		<script src="plugin/notes/notes.js"></script>
-		<script src="plugin/markdown/markdown.js"></script>
-		<script src="plugin/highlight/highlight.js"></script>
-		<script>
-			// More info about initialization & config:
-			// - https://revealjs.com/initialization/
-			// - https://revealjs.com/config/
-			Reveal.initialize({
-				hash: true,
+    <style>
+     .reveal .slides section.full-height {
+         height: 700px;
+     }
+     .reveal .slides section.full-height > article {
+         position: absolute;
+         top: 50%; left: 50%;
+         transform: translate(-50%, -50%);
+     }
 
-				// Learn about plugins: https://revealjs.com/plugins/
-				plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ]
-			});
-		</script>
-	</body>
+     .reveal .code-list {
+         margin: auto;
+     }
+     .reveal .code-list ul {
+         width: 100%;
+     }
+     .reveal .code-list ul pre.code-wrapper {
+         margin-left: 0;
+     }
+
+     .underline {
+         text-decoration: underline;
+     }
+     .highlight {
+         color: var(--r-link-color) !important;
+     }
+     .humble {
+         font-weight: normal;
+         font-size: 0.75em;
+     }
+     .reveal .slides section .fragment.highlight {
+         opacity: 1;
+         visibility: inherit;
+         color: inherit !important;
+     }
+     .reveal .slides section .fragment.highlight.visible {
+         color: var(--r-link-color) !important;
+     }
+
+     .when-of-python {
+         width: 100%;
+         height: 500px;
+         display: flex;
+         flex-direction: column;
+     }
+     .when-of-python > div {
+         position: relative;
+         height: 100%;
+         margin: 5px;
+         border-radius: 10px;
+         background: #111111;
+         border: 10px solid;
+     }
+     .when-of-python .never {
+         border-color: #F5363F;
+         flex: 5;
+     }
+     .when-of-python .sometimes {
+         border-color: #EBC334;
+         flex: 4;
+     }
+     .when-of-python .always {
+         border-color: #37FA71;
+         flex: 3;
+     }
+     .when-of-python article {
+         position: absolute;
+         font-size: 0.9em;
+     }
+     .when-of-python article.faded {
+         opacity: 0.2;
+     }
+     .when-of-python.no-faded article.faded {
+         opacity: 1;
+     }
+     .when-of-python article.fragment {
+         opacity: 1 !important;
+         visibility: visible !important;
+         transition: all 0.2s ease, font-weight 0s !important;
+     }
+     .when-of-python article.fragment.visible.current-fragment {
+         text-decoration: underline;
+     }
+     .when-of-python article.fragment.visible:not(.current-fragment) {
+         text-decoration: none;
+     }
+
+     .reveal label {
+         display: block;
+         padding: 15px;
+         border-radius: 15px;
+         position: absolute;
+         background: #333333;
+         font-size: 0.7em;
+         z-index: 1;
+         line-height: 1.1;
+         border: 4px solid var(--r-link-color);
+     }
+     .when-of-python label {
+         border-color: inherit;
+         opacity: 0 !important;
+     }
+     .when-of-python label.current-fragment {
+         opacity: 1 !important;
+     }
+     .when-of-python label pre.code-wrapper {
+         margin-bottom: 0;
+         font-size: 0.8em !important;
+     }
+    </style>
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+
+        <section>
+          <h2>The <span class="highlight">When</span> of Python</h2>
+
+          <p class='humble'>Grant Paton-Simpson &ndash; 2degrees<br>Benjamin Denham &ndash; AUT PhD Candidate, DataMasque</p>
+
+          <aside class="notes" data-markdown>
+            * [**Grant to start talking**]
+            * Hi everyone, my name is Grant, and this is Ben
+            * Thanks for coming to our talk on The When of Python
+            * We've been thinking a lot about the future of Python over the past few months
+            * ... and we're really excited to share with you some ideas we've had
+          </aside>
+        </section>
+
+        <section>
+          <h2 style="font-size: calc(var(--r-heading2-size) * 0.95);">The Promise of Python:</h2>
+
+          <aside class="notes" data-markdown>
+            * So let's start off by considering one of the main promises of Python:
+            * That Python is...
+            * [*`CLICK`*] Simple
+          </aside>
+        </section>
+
+        <section class="full-height">
+          <style>
+           .quote {
+               position: absolute;
+               text-align: left;
+               font-size: 0.75em;
+           }
+           .quote > .text {
+               display: block;
+               font-style: italic;
+           }
+           .quote > .source {
+               display: block;
+               font-size: 0.75em;
+           }
+          </style>
+
+          <article>
+            <h1>Simple<span class="fragment empty" data-fragment-index="7"><span class="highlight">?</span></span></h1>
+          </article>
+
+          <div class="quote fragment" data-fragment-index="1" style="left: 500px; top: 150px;">
+            <span class="text">Friendly & Easy to Learn</span>
+            <span class="source">&horbar; python.org/about</span>
+          </div>
+
+          <div class="quote fragment" data-fragment-index="2" style="left: 30px; top: 490px;" width="400px">
+            <span class="text"><code>print('Hello, world!')</code></span>
+          </div>
+
+          <div class="quote fragment" data-fragment-index="3" style="left: 60px; top: 175px;">
+            <span class="text">Python Fits Your Brain</span>
+            <span class="source">&horbar; Guido's theme for Pycon 2001</span>
+          </div>
+
+          <div class="quote fragment" data-fragment-index="3" style="left: 350px; top: 600px;">
+            <span class="text">Beauty, Simplicity, Flexibility</span>
+            <span class="source">&horbar; Kiwi PyCon</span>
+          </div>
+
+          <div class="quote fragment" data-fragment-index="4" style="left: 0px; top: 50px;">
+            <span class="text">There should be one-- and preferably only one --obvious way to do it.</span>
+            <span class="source">&horbar; The Zen of Python</span>
+          </div>
+
+          <div class="quote fragment" data-fragment-index="4" style="left: 670px; top: 480px;">
+            <span class="text"><span class="fragment highlight" data-fragment-index="8">Readability</span> counts.</span>
+            <span class="source">&horbar; The Zen of Python</span>
+          </div>
+
+          <aside class="notes" data-markdown>
+            * [*`CLICK`*] It's a major selling point of the language
+            * [*`CLICK`*] We talk about how Hello World is so much simpler in Python than other languages
+            * We emphasize simplicity...
+              * [*`CLICK`*] at conferences
+              * [*`CLICK`*] and in the Zen of Python
+            * [*`CLICK`*] But is Python still simple?
+            * [*`CLICK`*] Well, readability is a big part of simplicity,
+            * ... so let's focus on that for a minute
+          </aside>
+        </section>
+
+        <section>
+          <h3>What is <span class="highlight">Readability</span>?</h3>
+
+          <p class="fragment">Armed with basic language knowledge <br>&rightarrow; <em>rapidly</em> understand what code will do</p>
+
+          <aside class="notes" data-markdown>
+            * So what is readability?
+            * [*`CLICK`*] If code is readable,
+            * ... I should be able to quickly understand what code will do
+            * ... even if I only have a basic knowledge of the language.
+          </aside>
+        </section>
+
+        <section>
+          <h3>However, ever-expanding language features...</h3>
+
+          <ul>
+            <li class="fragment">
+              Provide more than "one obvious way"
+            </li>
+            <li class="fragment">
+              Make Python too big for your brain
+            </li>
+            <li class="fragment">
+              <span class="highlight">Hurt readability!</span>
+            </li>
+          </ul>
+
+          <aside class="notes" data-markdown>
+            * However, if you think about all the new features Python's been adding over the last few years...
+            * [*`CLICK`*] They provide more than **one** obvious way
+            * [*`CLICK`*] They make Python too big for your brain
+            * [*`CLICK`*] And therefore, they hurt readability!
+          </aside>
+        </section>
+
+        <section>
+           <p><code>namedtuple()</code></p>
+           <p>vs</p>
+           <p><code>NamedTuple</code></p>
+           <p>vs</p>
+           <p><code>@dataclass</code></p>
+
+           <aside class="notes" data-markdown>
+             * Consider namedtuples and data classes
+             * Three almost identical approaches to the same task in the standard library
+           </aside>
+        </section>
+
+        <section>
+           <p><code>concurrent.futures</code></p>
+           <p>vs</p>
+           <p><code>asyncio</code></p>
+           <p>vs</p>
+           <p><code>threading</code> / <code>multiprocessing</code></p>
+
+           <aside class="notes" data-markdown>
+             * And the same can be said for the different libraries available for concurrency
+           </aside>
+        </section>
+
+        <section>
+           <img style="width: 100%;" src="img/Python-Concurrency-API-Decision-Tree.webp" alt="Picture of Python concurrency decision tree">
+
+            <aside class="notes" data-markdown>
+              * We found a flow-chart which tries to simplify the choice
+              * It might well be correct but oh dear! <!-- https://superfastpython.com/python-concurrency-choose-api/ -->
+              * [*`Switch to Ben`*]
+           </aside>
+        </section>
+
+        <section>
+          <h2>Does it matter?</h2>
+          <h3>Having choices is useful!</h3>
+          <aside class="notes" data-markdown>
+            * [*`Switch to Ben`*]
+            * But does any of this really matter?
+            * After all, having choices is useful
+          </aside>
+        </section>
+
+        <section>
+          <h3 style="font-size: calc(var(--r-heading3-size) * 0.85);">Storytime: X-Wing Miniatures Game</h3>
+
+          <div style="display: flex; justify-content: space-evenly;">
+            <img style="width: 40%;" src="img/xwing.jpg" alt="Picture of X-Wing miniatures">
+            <img style="width: 40%;" src="img/xwing-core.jpg" alt="Picture of small amount of original X-Wing rules">
+          </div>
+
+          <aside class="notes" data-markdown>
+            * Well, a few years ago I started playing the X-Wing miniatures game
+            * and the simplicity of the game was a major drawcard
+            * ...because it meant that I could easily teach my friends how to play!
+          </aside>
+        </section>
+
+        <section>
+          <h3>The game kept getting better!</h3>
+          <img style="height: 500px" src="img/xwing-expansion.jpg" alt="Picture of small X-Wing expansion">
+
+          <aside class="notes" data-markdown>
+            * and over time they kept adding new ships
+            * ...to keep the game fresh for veteran players
+          </aside>
+        </section>
+
+        <section>
+          <h3>Fast-forward a few years...</h3>
+
+          <div style="display: flex; justify-content: space-evenly; align-items: center;">
+            <div>
+              <p style="font-size: 1.1em; font-weight: bold;">35× as much<br>to learn!</p>
+              <img style="height: 344px" src="img/xwing-core.jpg" alt="Picture of small amount of original X-Wing rules">
+            </div>
+            <img style="height: 200px; padding-top: 50px; padding: 0 10px; position: relative; top: 65px;" src="img/arrow.svg">
+            <img style="height: 500px" src="img/xwing-all.png" alt="Picture of large amount of extend X-Wing rules, cards, tokens">
+          </div>
+
+          <aside class="notes" data-markdown>
+            * But fast-forward a few years of expansions
+            * ...the sheer volume of rules made the game unapproachable for beginners
+           </aside>
+        </section>
+
+        <section>
+          <blockquote style="width: 90%; margin-bottom: 0;">"...it got more <span class="highlight">complicated</span>, making it <span class="highlight">less easy</span> to jump into the proverbial cockpit."</blockquote>
+          <span style="font-size: 0.7em;">&horbar; starwars.com/news/x-wing-second-edition</span>
+
+          <aside class="notes" data-markdown>
+            * In the end, the game designers had to drastically simplify the game
+            * ...because it was just too complex
+          </aside>
+        </section>
+
+        <section class="full-height">
+          <style>
+           .article-quote {
+               position: absolute;
+               background: #222222;
+               font-size: 0.4em;
+               z-index: 1;
+               padding: 10px;
+           }
+          </style>
+          <article>
+            <h3 style="width: 900px;"><span class="highlight">Learnability</span> is a big part of Python's success</h3>
+          </article>
+
+          <div class="fragment" data-fragment-index="1">
+            <img src="img/universities-headline.png"
+                 style="position: absolute; top: 0; left: 25px; width: 90%;"
+                 alt="Headline: Python bumps off Java as top learning language (infoworld.com)">
+            <div class="article-quote"
+                 style="top: 130px; right: 25px; width: 350px;">
+              Python possesses a mix of qualities that makes it a good
+              candidate for universities. It has a
+              <span class="highlight fragment" data-fragment-index="2">simpler syntax</span>
+              than Java or C++, allowing novices to
+              <span class="highlight fragment" data-fragment-index="2">start writing programs almost immediately</span>.
+            </div>
+          </div>
+          <div class="fragment" data-fragment-index="3">
+            <img src="img/tiobe-headline.png"
+                 style="position: absolute; bottom: 35px; left: 25px; width: 80%;"
+                 alt="Headline: Python ends C and Java's 20-year reign atop the TIOBE index (techreublic.com)">
+            <div class="article-quote"
+                 style="bottom: 20px; right: 25px; width: 400px;">
+              “Python, which
+              <span class="highlight fragment" data-fragment-index="4">started as a simple scripting language</span>,
+              as an alternative to Perl, has become mature. Its
+              <span class="highlight fragment" data-fragment-index="4">ease of learning</span>,
+              its huge amount of libraries and its widespread
+              use in all kinds of domains, has made it the most popular
+              programming language of today,” said TIOBE CEO Paul
+              Jansen.
+            </div>
+          </div>
+
+          <aside class="notes" data-markdown>
+            * Like X-Wing, learnability has been a big part of Python's success
+            * [*`CLICK`*] Python recently surpassed Java as the top learning language in universities
+              * [*`CLICK`*] and that success has been attributed to its simplicity
+            * [*`CLICK`*] just last year, Python became the most popular language on the TIOBE index
+              * [*`CLICK`*] and again, simplicity is arguably a major factor in that success
+          </aside>
+        </section>
+
+        <section>
+          <h3 style="font-size: calc(var(--r-heading3-size) * 0.7);">
+            But how easy is it to learn modern Python?
+          </h3>
+          <ul>
+            <li class="fragment">
+              In order to start <span class="highlight">reading</span> Python, you must understand <span class="underline">all</span> commonly used features.
+            </li>
+            <li class="fragment">
+              After a 1-day course, how comfortable would you be reading Python from 10 years ago vs today?
+              <br>&emsp;<span class="fragment" style="font-size: 0.9em;">Type-hinting...</span>
+              <br>&emsp;&emsp;<span class="fragment" style="font-size: 0.85em;">F-strings...</span>
+              <br>&emsp;&emsp;&emsp;<span class="fragment" style="font-size: 0.8em;">Walrus operator (<code>:=</code>)...</span>
+              <br>&emsp;&emsp;&emsp;&emsp;<span class="fragment" style="font-size: 0.75em;">Positional-only parameters...</span>
+
+              <br>&emsp;&emsp;&emsp;&emsp;&emsp;<span class="fragment" style="font-size: 0.7em;">Structural pattern matching (<code>match</code>)...</span>
+              <br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;<span class="fragment" style="font-size: 0.65em;">...</span>
+            </li>
+          </ul>
+
+          <aside class="notes" data-markdown>
+            * But how easy is it really to learn modern Python?
+            * [*`CLICK`*] Well, remember, in order to confidently read code,
+            * ...you must be familar with *all* the language features that you're likely to come across
+            * [*`CLICK`*] Consider how much more needs to be at least mentioned in a
+              Python crash-course today compared to just 10 years ago
+            * We have:
+              * ...
+              * And that's *just* in the last 10 years
+          </aside>
+        </section>
+
+        <section>
+          <h3>Not everyone has the time to learn that much Python</h3>
+          <ul>
+            <li class="fragment">
+              Scientists
+            </li>
+            <li class="fragment">
+              School Teachers
+            </li>
+            <li class="fragment">
+              Data Analysts
+            </li>
+          </ul>
+
+          <aside class="notes" data-markdown>
+            * With so much more to learn, Python risks becoming unapproachable
+              to beginners,
+            * ...especially those who aren't full-time software engineers, like:
+            * [*`CLICK`*] Scientists
+            * [*`CLICK`*] School teachers
+            * [*`CLICK`*] and data analysts
+          </aside>
+        </section>
+
+        <section>
+          <h3><span class="highlight">Language creep</span> threatens Python's popularity!</h3>
+
+          <aside class="notes" data-markdown>
+            * By alienating those users that have made Python
+              so widespread,
+            * ...Python's language creep could ultimately
+              threaten its popularity.
+          </aside>
+        </section>
+
+        <section>
+          <h3>So should we just stop extending Python?</h3>
+          <ul>
+            <li class="fragment">
+              Python must still adapt to survive and improve!
+            </li>
+            <li class="fragment">
+              But it's really hard to remove old features
+            </li>
+            <li class="fragment">
+              We need a way to shrink Python
+            </li>
+          </ul>
+
+          <aside class="notes" data-markdown>
+            * So should we just stop extending Python?
+            * [*`CLICK`*] Well, we still want Python to improve where possible
+            * [*`CLICK`*] But additions inevitably lead to language creep
+            * ...when we have to keep old features for backwards compatibility.
+            * [*`CLICK`*] What we really need is some way to shrink the Python language.
+          </aside>
+        </section>
+
+        <section>
+          <h3>Can we shrink Python?</h3>
+          <img src="img/js-the-good-parts.png" alt="The book on \"JavaScript: the Good Parts\" is much smaller than the book on \"JavaScript\"" style="width: 70%;">
+          <ul style="font-size: 0.83em;">
+            <li class="fragment">Languages can deprecate features and APIs
+              <ul>
+                <li>
+                JavaScript, Java, C++, PHP
+                </li>
+              </ul>
+            </li>
+            <li class="fragment">
+              Python only deprecated 4 modules since 3.0 (2008) &ndash; PEP 4
+            </li>
+          </ul>
+
+          <aside class="notes" data-markdown>
+            * Ok, so maybe we could copy the JS community?
+            * They have "JS The Good Parts",
+            * ...which presented a subset of JS that is more readable and reliable.
+            * And the JS community loved it!
+            * [*`CLICK`*] Some languages are even more aggressive,
+              * ...deprecating features and APIs entirely.
+            * [*`CLICK`*] Contrast that with Python,
+            * ...which has only deprecated 4 modules since Python 3.0 in 2008
+          </aside>
+        </section>
+
+        <section>
+          <h3>Python: The Good Parts?</h3>
+          <img src="img/python-the-good-parts.png" alt="\"Python: The Good Parts\" book cover"
+               style="width: 40%;">
+
+          <aside class="notes" data-markdown>
+            * So should we just write "Python: The Good Parts"?
+            * Well, Python doesn't really have the same "bad parts" problem as JS
+          </aside>
+        </section>
+
+        <section>
+          <h3 style="font-size: calc(var(--r-heading3-size) * 0.75);">
+            Not enough room for <span class="highlight">all</span> the good parts
+          </h3>
+          <img src="img/desert-island-discs.png" alt="Desert Island Discs logo">
+          <h3 class="fragment">What parts of Python would you take with you?</h3>
+
+          <aside class="notes" data-markdown>
+            * So what we're really saying is that
+            * ...there isn't enough room for **all* of Python's good parts
+            * Just like how Desert Island Discs asks
+            * ...which eight music albums you would take with you to a desert island...
+            * [*`CLICK`*] We need to ask ourselves:
+            * ..."What parts of Python should we take with us if we can't take it all?"
+          </aside>
+        </section>
+
+        <style>
+         .everyday-steps {
+             display: flex;
+             align-items: center;
+         }
+         .everyday-step.with-arrow {
+             padding-right: 70px;
+             background-image: url(img/arrow.svg);
+             background-size: 40px;
+             background-repeat: no-repeat;
+             background-position-x: calc(100% - 15px);
+             background-position-y: center;
+         }
+         .everyday-steps ul li {
+             margin-top: 20px;
+         }
+         .everyday-steps li.arrow::marker {
+             content: '→';
+             font-weight: bold;
+         }
+         .everyday-steps li.arrow {
+             padding-left: 15px;
+         }
+        </style>
+        <section class="everyday-steps">
+          <h2><span class="highlight">Everyday</span> Python</h2>
+
+          <ul style="font-size: 0.93em; list-style: none;">
+            <li class="fragment">
+              The community defines a <span class="highlight">limited subset</span> of Python for
+              <span class="highlight">everyday</span> use
+              <ul>
+                <li class="fragment arrow">
+                  The community <span class="highlight">agrees to favour</span>
+                  Everyday Python in their code as much as possible
+                  <ul>
+                    <li class="fragment arrow">
+                      Beginners have <span class="highlight">confidence</span>
+                      in what they need to learn in order to
+                      <span class="highlight">read most</span> Python code
+                    </li>
+                    <li class="fragment arrow">
+                      A smaller Python is more <span class="highlight">readable</span>,
+                      is <span class="highlight">easier</span>
+                      to master, and <span class="highlight">speeds up</span>
+                      development time.
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+
+          <aside class="notes" data-markdown>
+            * Practically, we're proposing the Python community defines an Everyday Python
+            * [*`CLICK`*] That is, a limited subset of Python for everyday use
+            * [*`CLICK`*] And if we can agree to use Everyday Python as much as possible...
+            * [*`CLICK`*] then beginners will be able to read most Python code
+            * [*`CLICK`*] and all developers will benefit
+            * ...from having an agreed Everyday Python that is easier to **master**.
+          </aside>
+        </section>
+
+        <section>
+          <h2>Everyday Python is a...</h2>
+
+          <aside class="notes" data-markdown>
+            * So, what we're saying is that Everyday Python is a...
+          </aside>
+        </section>
+
+        <section>
+          <img src="img/bad-pun-ahead.svg" width="33%" alt="Road sign warning of a bad pun ahead">
+
+          <aside class="notes" data-markdown>
+          </aside>
+        </section>
+
+        <section>
+          <h2>Python <span class="highlight">Constrictor</span>!</h2>
+
+          <aside class="notes" data-markdown>
+            * Python constrictor!
+          </aside>
+        </section>
+
+        <section>
+          <h3>
+            So let's <span class="highlight">constrict</span> Python!
+          </h3>
+          <img src="img/the-when-of-python.png" alt="\"The When of Python\" book cover"
+               style="width: 40%;">
+
+          <aside class="notes" data-markdown>
+            * So instead of writing "Python: The Good Parts",
+            * ...we propose establishing "The When of Python"
+            * ...a guide that answers the question of "When" you
+              should reach for the various features of Python.
+            * [*`Switch to Grant`*]
+           </aside>
+          </script>
+        </section>
+
+        <style>
+         .when-of-python.overview article {
+             display: none;
+         }
+         .when-of-python .description {
+             width: 100%;
+             height: 100%;
+             display: flex;
+             justify-content: center;
+             align-items: center;
+         }
+         .when-of-python .description > div.title {
+             font-weight: bold;
+             opacity: 1 !important;
+             visibility: visible !important;
+         }
+         .when-of-python .description > div.title.visible {
+             transform: translate(-50%, 0);
+         }
+         .when-of-python .description > div.criteria {
+             position: absolute;
+             top: 50%;
+             transform: translate(0, -50%);
+             left: 550px;
+         }
+        </style>
+        <section>
+          <h2>The <span class="highlight">When</span> of Python</h2>
+
+          <div class="when-of-python fragment overview" data-fragment-index="1">
+            <div class="always">
+              <div class="description">
+                <div class="title fragment" data-fragment-index="2">
+                  Almost always use
+                </div>
+                <div class="criteria fragment" data-fragment-index="2">
+                  <ul>
+                    <li>Everyday Python</li>
+                    <li>Teach first</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="sometimes">
+              <div class="description">
+                <div class="title fragment" data-fragment-index="3">
+                  Sometimes use
+                </div>
+                <div class="criteria fragment" data-fragment-index="3">
+                  <ul>
+                    <li>Situational</li>
+                    <li>Advanced users</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <div class="never">
+              <div class="description">
+                <div class="title fragment" data-fragment-index="4">
+                  Almost never use
+                </div>
+                <div class="criteria fragment" data-fragment-index="4">
+                  <ul>
+                    <li>Niche uses</li>
+                    <li>Deprecated</li>
+                    <li>Not taught</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <aside class="notes" data-markdown>
+            * [*`Switch to Grant`*]
+            * Specifically, we propose organising Python's features
+              into three tiers:
+              * [*`CLICK`*]
+              * Those that you should almost always use,
+              * ... the first tools you reach for
+              * Those that you should use less often,
+              * ... but that are still the best approach for certain use-cases
+              * And finally those that the community has decided
+              * ... should rarely if ever be used
+            * [*`CLICK`*] The first tier is what we'd consider "Everyday Python",
+            * ... and is what you'd teach first in an introductory Python course
+            * [*`CLICK`*] The second tier contains features that are mostly situational
+            * [*`CLICK`*] Finally, features in the third tier
+            * ... are reserved for very specific niche uses,
+            * ... or are considered obsolete.
+           </aside>
+        </section>
+
+        <section>
+          <img src="img/opinions-ahead.svg" width="33%" alt="Road sign urging caution because of opinions ahead">
+
+          <aside class="notes" data-markdown>
+            * Now we're going to look at how some of Python's features
+            * ... could be organised using the "When of Python"
+            * Obviously these are just our opinions,
+            * ... and we welcome a healthy debate on these
+          </aside>
+        </section>
+
+        <section>
+          <h3>The <span class="highlight">When</span> of Python</h3>
+
+          <div class="when-of-python no-faded">
+            <div class="always">
+            </div>
+            <div class="sometimes">
+            </div>
+            <div class="never">
+            </div>
+          </div>
+          <p style="font-size: 0.9em; margin-top: 0.2em;">(This is how we think Python <span class="highlight"><em>should</em> be used</span>,<br>not how it is currently used)</p>
+
+          <aside class="notes" data-markdown>
+            * So, here's our When of Python
+            * We're going to work through each feature to explain our choices
+            * There are some general principles behind our decisions,
+            * ... but we'll elaborate at the end
+          </aside>
+        </section>
+
+        <section>
+           <h3>String Formatting</h3>
+           <p style="font-size: 0.7em;">(See: <a href="https://realpython.com/python-string-formatting/">realpython.com/python-string-formatting</a>)</p>
+           <div class="code-list" style="width: 95%;">
+             <ul>
+               <li class="fragment">
+                 <code>%</code>-formatting &ndash; Original string formatting
+                 <pre><code class="python hljs" data-trim>
+                 'Hello %s' % name
+                 </code></pre>
+               </li>
+               <li class="fragment">
+                 <code>.format()</code> &ndash; Safer support for more types
+                 <pre><code class="python hljs" data-trim>
+                 'Hello {name}'.format(name=name)
+                 </code></pre>
+               </li>
+               <li class="fragment">
+                 f-strings &ndash; Provided a more concise syntax
+                 <pre><code class="python hljs" data-trim>
+                 f'Hello {name}!'
+                 </code></pre>
+               </li>
+               <li class="fragment">
+                 Template &ndash; Safest for user-provided templates
+                 <pre><code class="python hljs" data-trim>
+                 string.Template('Hello $name!').substitute(name=name)
+                 </code></pre>
+               </li>
+             </ul>
+           </div>
+
+           <aside class="notes" data-markdown>
+             * Let's start with string formatting
+             * [*`CLICK`*] First we had old style string formatting
+             * [*`CLICK`*] Then dot-format was added
+             * ... to address some issues with how some data types were handled
+             * [*`CLICK`*] And most recently, we've had f-strings,
+             * ... which have taken the benefits of dot-format
+             * ... and combined them with a nicer syntax
+             * [*`CLICK`*] Template Strings also exist,
+             * ... which are safest for the niche case of user-provided templates
+           </aside>
+        </section>
+
+        <section>
+          <h3>String Formatting</h3>
+          <div class="when-of-python">
+            <div class="always">
+              <article class="fragment" style="top: 5px; left: 20px;">f-strings</article>
+              <label data-below data-right style="top: 25px; left: 165px;">
+                <span class="highlight">Concise</span>, <span class="highlight">readable</span>, covers most cases
+              </label>
+            </div>
+            <div class="sometimes">
+              <article class="fragment" style="top: 25px; left: 20px;"><code>.format()</code></article>
+              <label data-below data-right style="top: 50px; left: 225px;">
+                Useful in <span class="highlight">certain situations</span>: <pre class="code-wrapper"><code class="python hljs">'...'.format(**kwargs)</code></pre>
+              </label>
+            </div>
+            <div class="never">
+              <article class="fragment" style="top: 5px; left: 20px;"><code>Template()</code></article>
+              <label data-below data-right style="width: 410px; top: 40px; left: 255px;">
+                The safe tool for the <span class="highlight">niche</span> of user-provided template strings
+              </label>
+              <article class="fragment" style="bottom: 5px; left: 20px;"><code>%</code>-formatting</article>
+              <label data-above data-right style="bottom: 40px; left: 240px;">
+                <span class="highlight">Redundant</span> now that we have f-strings
+              </label>
+            </div>
+          </div>
+
+          <aside class="notes" data-markdown>
+            * So, we place these features onto the When of Python as follows:
+            * [*`CLICK`*] You should almost always use f-strings:
+            * ... they are concise, readable, and cover most cases
+            * [*`CLICK`*] Dot-format should be used less often now,
+            * ... but it's still useful for some cases, like unpacking arguments.
+            * [*`CLICK`*] Template strings are useful but only for user-provided templates.
+            * ... They're a good example of a feature that is a good part of the language
+            * ... but still belongs in the third tier
+            * [*`CLICK`*] And old-style string formatting
+            * ... should be considered redundant and obsolete
+          </aside>
+        </section>
+
+        <section>
+          <h3>Data-Storage Objects</h3>
+          <div class="code-list" style="width: 90%;">
+            <ul>
+              <li class="fragment">
+                Original: <code>collections.namedtuple</code>
+                <pre><code class="python hljs" data-trim>
+                Rectangle = namedtuple('Rectangle', ['width', 'height'])
+                my_square = Rectangle(width=42, height=42)
+                </code></pre>
+               </li>
+              <li class="fragment">
+                Simpler, typed: <code>typing.NamedTuple</code>
+                <pre><code class="python hljs" data-trim>
+                class Rectangle(NamedTuple):
+                   width: float
+                   height: float
+                </code></pre>
+               </li>
+              <li class="fragment">
+                More versatile Data Classes:
+                <pre><code class="python hljs" data-trim>
+                @dataclass(frozen=True, order=True)
+                class Rectangle:
+                   width: float
+                   height: float
+                </code></pre>
+               </li>
+            </ul>
+          </div>
+
+          <aside class="notes" data-markdown>
+            * Now let's move on to data-storage objects
+            * [*`CLICK`*] Originally, named tuples were the standard way
+            * ... to quickly define a Class for immutable objects
+            * ... that store a bunch of attributes
+            * [*`CLICK`*] When typing was introduced, we got a cleaner syntax for defining namedtuples
+            * [*`CLICK`*] And finally,
+            * ... the more recently introduced Data Classes fulfill essentially the same role as namedtuples,
+            * ... but can be used for both mutable and immutable objects
+            * ... depending on the `frozen` argument.
+          </aside>
+        </section>
+
+        <section>
+          <h3>Data-Storage Objects</h3>
+
+          <div class="when-of-python">
+            <div class="always">
+              <article class="fragment" style="bottom: 15px; right: 5px;"><code>@dataclass</code></article>
+              <label data-left data-below style="width: 410px; top: 85px; right: 230px;">
+                <span class="highlight">Simple</span> syntax for
+                <span class="highlight">both</span> mutable and immutable objects
+              </label>
+            </div>
+            <div class="sometimes">
+            </div>
+            <div class="never">
+              <article class="fragment" style="bottom: 0px; right: 5px;"><code>NamedTuple/namedtuple()</code></article>
+              <label data-above data-left style="bottom: 25px; left: 60px;">
+                <span class="highlight">Only immutable</span> objects.
+              </label>
+            </div>
+          </div>
+
+          <aside class="notes" data-markdown>
+            * So, in The When of Python,
+            * [*`CLICK`*] we think Data Classes should be the
+              everyday, go-to tool for data-storage objects,
+            * [*`CLICK`*] while namedtuples should only be rarely used.
+            <!-- If someone raises performance, two points:
+                 1) memory usage for data classes is lower, and runtime appears to be comparable, and
+                 2) if you really need some performance difference, you have a niche use case, so go ahead and use it  -->
+            <!-- Source: Re-ran github gists from https://medium.com/@jacktator/dataclass-vs-namedtuple-vs-object-for-performance-optimization-in-python-691e234253b9 on Python 3.8.5 -->
+          </aside>
+        </section>
+
+        <section>
+          <h3>Structural Pattern Matching: The Promise</h3>
+          <pre><code class="python hljs" data-trim>
+          match json_shape:
+              case {'type': 'circle', 'radius': radius}:
+                  return Circle(radius)
+              case {'type': 'rectangle', 'dimensions': [width, height]}:
+                  return Rectangle(width, height)
+              case _:
+                  raise ValueError('Not a shape')
+          </code></pre>
+          <ul style="font-size: 0.85em;">
+            <li class="fragment">Python finally gets a <span class="highlight">concise <code>switch</code> statement</span>!</li>
+            <li class="fragment"><span class="highlight">Elegantly unpack</span> nested data structures</li>
+            <li class="fragment">Stealing another <span class="highlight">handy feature</span> from functional languages</li>
+          </ul>
+
+          <aside class="notes" data-markdown>
+            * Now, let's look at one of Python's most recent features:
+            * ... structural pattern matching
+            * Here we have an example of using a `match` statement
+            * ... to check the structure of a dictionary
+            * ... and then unpack values from it.
+            * There's some real benefits structural pattern matching gives us:
+              * [*`CLICK`*] For one, with literal values in cases,
+              * ... we have a concise switch statement
+              * [*`CLICK`*] We can also really elegantly unpack
+              * ... complex and deeply nested data structures
+              * [*`CLICK`*] It's another case of stealing another handy feature from functional languages
+                * ... - just like list and dictionary comprehensions etc
+          </aside>
+        </section>
+
+        <section>
+          <h3>Structural Pattern Matching: The Reality</h3>
+          <ul>
+            <li class="fragment">A new <span class="highlight">mini-language</span> within Python</li>
+            <li class="fragment">More <span class="highlight">subtleties</span> than constructs like <code>if-else</code>:
+              <pre style="width: 100%;"><code class="python hljs" data-trim>
+              match value:
+                  case str():
+                      print(f'{value} is a string!')
+              # Without parens after str...
+              match value:
+                  case str:
+                      print('Oops, this case always matches and redefines str!')
+              </code></pre>
+            </li>
+            <li class="fragment"><span class="highlight">Bugs are hard to see</span> if you're not confident in reading its syntax</li>
+          </ul>
+
+          <aside class="notes" data-markdown>
+            * But all these benefits come at a cost
+            * [*`CLICK`*] Match introduces another mini-language within Python
+            * [*`CLICK`*] And that mini-language has some really subtle gotchas:
+            * For example, if you forget the parentheses after a type name,
+            * ... you'll end up redefining that type name for all following code!
+            * [*`CLICK`*] Because this looks really similar to normal Python code,
+            * ... bugs like that will be really hard to see
+            * ... unless you're really confident in the match mini-language
+          </aside>
+        </section>
+
+        <section>
+          <h3>Structural Pattern Matching</h3>
+
+          <div class="when-of-python">
+            <div class="always">
+            </div>
+            <div class="sometimes">
+            </div>
+            <div class="never">
+              <article style="top: 5px; right: 65px;"><code>match</code></article>
+              <label data-below data-left style="opacity: 1 !important; width: 520px; top: 30px; right: 180px;">
+                Provides <span class="highlight">simpler syntax</span> for complex unpacking,
+                but <span class="highlight">dangerous</span> if you don't fully understand
+                its syntax and <span class="highlight">gotchas</span>.
+              </label>
+            </div>
+          </div>
+
+          <aside class="notes" data-markdown>
+            * So overall, because `match` requires memorising too much
+              new syntax
+              * ... in order to use it safely,
+              * ... we think it shouldn't be part of Everyday Python
+            * Instead, it should be left for use-cases
+            * ... with lots of tricky data structure unpacking,
+            * ... like parsing abstract syntax trees
+            * [*`Switch to Ben`*]
+          </aside>
+        </section>
+
+        <section>
+          <h3>Concurrency</h3>
+
+          <p><code>threading</code> / <code>multiprocessing</code>:</p>
+
+          <pre style="font-size: 0.39em;"><code class="python hljs" data-trim>
+          def download_post(post_num):
+             url = f'https://jsonplaceholder.typicode.com/posts/{post_num}'
+             return requests.get(url).json()
+
+          posts = {}
+          post_nums = range(5)
+          threads = [
+             threading.Thread(
+                # Make post_num an explicit argument to avoid late-binding
+                target=lambda post_num: setitem(posts, post_num, download_post(post_num)),
+                kwargs={'post_num': post_num},
+             ) for post_num in post_nums
+          ]
+          # Start all the threads
+          for thread in threads:
+             thread.start()
+          # Wait for all threads to finish
+          for thread in threads:
+             thread.join()
+          # Order by post_num
+          print([posts[post_num] for post_num in post_nums])
+          </code></pre>
+
+          <label class="fragment" style="width: 400px; bottom: 80px; right: 100px;">
+            <span class="highlight">Too much</span> and <span class="highlight">too dangerous</span> for a simple task!
+          </label>
+
+          <aside class="notes" data-markdown>
+            * [*`Switch to Ben`*]
+            * Now, let's look at Python's options for concurrency
+            * Originally, Python only had the low-level threading and multiprocessing modules
+            * But look how much code is needed just to perform a simple task
+            * ...like downloading a bunch of files in parallel.
+            * [*`CLICK`*] There's just too much going on here,
+            * ...not to mention the dangerous cross-thread data mutation hiding in there
+          </aside>
+        </section>
+
+        <section>
+          <h3 style="font-size: 1.33em;">Concurrency: <code>concurrent.futures</code></h3>
+
+          <p>
+            <span class="highlight">Simpler</span> interface for <span class="highlight">both</span>
+            <br><code>threading</code> and <code>multiprocessing</code>:
+          </p>
+
+          <pre><code style="font-size: 0.9em;" data-line-numbers="|6|5" data-trim class="python hljs">
+           def download_post(post_num):
+              url = f'https://jsonplaceholder.typicode.com/posts/{post_num}'
+              return requests.get(url).json()
+
+           with concurrent.futures.ThreadPoolExecutor() as executor:
+              posts = executor.map(download_post, range(5))
+              print(list(posts))
+          </code></pre>
+
+          <p class="fragment">
+            <span class="highlight">Easy to refactor</span> existing code:
+            <br><em>Practical Python Async for Dummies</em>
+          </p>
+
+          <aside class="notes" data-markdown>
+            * About 10 years ago, we got the concurrent futures module
+            * ...which radically simplifies that file downloading code
+            * [*`CLICK`*] In essence, the parallel processing is reduced to just this single line
+            * [*`CLICK`*] And I can even swap out the ThreadPoolExecutor for a
+              ProcessPoolExecutor
+            * ...to use processes instead of threads if I want to leverage more CPU cores.
+            * [*`CLICK`*] So concurrent futures makes it really easy to refactor existing code
+              to be concurrent,
+            * ...and to see how, have a look at the simple patterns
+              in Grant's Kiwi PyCon talk from a few years ago.
+          </aside>
+        </section>
+
+        <section>
+          <h3>Concurrency: <code>asyncio</code></h3>
+
+          <p style="font-size: 0.9em;">
+            An <span class="highlight">alternative paradigm</span> for
+            <span class="highlight">single-process</span> concurrency
+            that <span class="highlight">avoids overheads</span> of threads:
+          </p>
+
+          <pre style="font-size: 0.53em;"><code class="python hljs" data-trim>
+          async def download_post(session, post_num):
+             url = f'https://jsonplaceholder.typicode.com/posts/{post_num}'
+             async with session.get(url) as response:
+                return await response.json()
+
+          async def main():
+             async with aiohttp.ClientSession() as session:
+                return await asyncio.gather(*[
+                   download_post(session, post_num) for post_num in range(5)
+                ])
+
+          print(asyncio.run(main()))
+          </code></pre>
+
+          <p class="fragment">
+            A step backwards for <span class="highlight">readability</span>
+            and <span class="highlight">learnability</span>?
+          </p>
+
+          <aside class="notes" data-markdown>
+            * More recently, asyncio was introduced to Python.
+            * But look at all the new `async` syntax you need to learn
+            * ...just to rewrite the file downloading code
+            * Even the `download_post` function needs to be redefined
+            * ...to use the necessary async building blocks.
+            * [*`CLICK`*] So is asyncio actually a step backwards for readability and learnability?
+          </aside>
+        </section>
+
+        <section>
+          <h3>Concurrency: <code>asyncio</code></h3>
+
+          <blockquote style="font-size: 0.8em;">
+            The <span class="highlight">learning curve</span> on [async] is <span class="highlight">enormous</span>
+            <br>...<br>
+            Many, many tools in Python will get a non-async version
+            and a async version and it might in the end
+            <span class="highlight">double the size of the language</span>
+            <br>...<br>
+            I think <span class="highlight">async is the future</span>; threading is so hard to get right [and] so expensive.
+          </blockquote>
+
+          <p style="margin-top: 10px;">&horbar; Raymond Hettinger, PyBay 2017</p>
+
+          <aside class="notes" data-markdown>
+            * Well, it's interesting to look at Raymond Hettinger's comments on asyncio,
+            * ...given he is a Python core developer and respected Python teacher
+            * He noted that it has an *enormous* learning curve,
+            * ...and that we might end up *doubling* the size of Python
+            * ...in order to provide async-compatible versions of many existing tools.
+            * Nonetheless, he expected that asyncio would play a large part in Python's future.
+            * While it may be important for certain use cases,
+            * ...we believe the cost of learning asyncio is too high for most Python developers.
+          </aside>
+        </section>
+
+        <section>
+          <h3>Concurrency</h3>
+
+          <div class="when-of-python">
+            <div class="always">
+            </div>
+            <div class="sometimes">
+              <article class="fragment" data-fragment-index="1" style="top: 0px; left: 280px;"><code>concurrent.futures</code></article>
+              <label style="width: 500px; top: 55px; left: 210px;">
+                <span class="highlight">Simple interface</span> for threads and processes, but not needed everyday</code>
+              </label>
+            </div>
+            <div class="never">
+              <article class="fragment" data-fragment-index="2" style="top: 5px; left: 400px;"><code>asyncio</code></article>
+              <label style="width: 400px; top: -90px; left: 260px;">
+                <span class="highlight">Steep learning-curve</span>, but best option for niche use-cases
+              </label>
+              <article class="fragment" data-fragment-index="2" style="top: 60px; left: 230px;"><code>threading</code> / <code>multiprocessing</code></article>
+              <label style="bottom: -15px; left: 235px;">
+                Low-level APIs for <span class="highlight">advanced use-cases</span>
+              </label>
+            </div>
+          </div>
+
+          <aside class="notes" data-markdown>
+            * So,
+            * [*`CLICK`*] we think that concurrent futures should be the
+              preferred tool for concurrency,
+            * ...given that it has a simple interface for both single and multi-process concurrency.
+            * Note we don't consider it Everyday Python,
+            * ...as the need for concurrency *at all* is still situational.
+            * [*`CLICK`*] With their steeper learning curves,
+            * ...we believe asyncio, threading, and multiprocessing libraries
+            * ...should only be used for niches where
+              their particular benefits are needed.
+          </aside>
+        </section>
+
+        <section>
+          <h3><code>for else</code></h3>
+
+          <div class="fragment">
+            <h4 style="margin-bottom: 0;">Which is it?</h4>
+            <div style="display: flex; flex-direction: row;">
+
+              <pre style="margin-right: 10px;">
+                <code class="python hljs" data-line-numbers="4-5" data-trim>
+                for animal in animals:
+                    if animal == my_pet:
+                        break
+                else:
+                    print('No pet found :(')
+                </code>
+              </pre>
+
+              <pre style="margin-left: 10px;">
+                <code class="python hljs" data-line-numbers="4-5" data-trim>
+                for animal in animals:
+                    if animal == my_pet:
+                        break
+                else:
+                    print('Pet found :)')
+                </code>
+              </pre>
+
+            </div>
+          </div>
+
+          <div class="fragment">
+            <h4 style="margin-bottom: 0;">Why not just remove the ambiguity?</h4>
+
+            <pre>
+              <code class="python hljs" data-trim>
+              found_pet = False
+              for animal in animals:
+                  if animal == my_pet:
+                      found_pet = True
+                      break
+              if not found_pet:
+                  print('No pet found :(')
+              </code>
+            </pre>
+          </div>
+
+          <aside class="notes" data-markdown>
+            * Ok, now let's consider the for loop's optional else block
+            * [*`CLICK`*] Looking at this code,
+            * ...it's not immediately obvious whether the else block runs if the break is hit,
+            * ...or if it is not hit
+            * [*`CLICK`*] In practice, it's clearer to just remove the
+              ambiguity for the reader
+            * ...and set a variable before breaking
+          </aside>
+        </section>
+
+        <section>
+          <h3><code>for else</code></h3>
+
+          <div class="when-of-python">
+            <div class="always">
+            </div>
+            <div class="sometimes">
+            </div>
+            <div class="never">
+              <article style="top: 60px; left: 10px;"><code>for else</code></article>
+              <label style="opacity: 1 !important; width: 660px; top: 25px; left: 190px;">
+                <span class="highlight">Specialised</span> and arguably
+                <span class="highlight">confusing</span>. Easily replaced with
+                common language features. Guido said he would use a time machine to remove it.
+              </label>
+            </div>
+          </div>
+
+          <aside class="notes" data-markdown>
+            * So overall, we're better off without `for else`
+            * Guido even said he would go back in time and remove it
+          </aside>
+        </section>
+
+        <section>
+          <h3>Misc</h3>
+
+          <div class="when-of-python">
+            <div class="always">
+              <article class="fragment" style="top: 0; right: 250px;">Comprehensions</article>
+              <label data-below data-left style="width: 400px; top: 50px; left: 10px;">
+                <span class="highlight">Simple</span>, <span class="highlight">readable</span> syntax for building lists, dictionaries, etc.
+              </label>
+              <article class="fragment" style="bottom: 5px; left: 200px;"><code>1_000_000</code></article>
+              <label data-below data-right style="width: 420px; bottom: -125px; left: 350px">
+                <span class="highlight">Easy to learn</span>. Makes numbers
+                <span class="highlight">safer to read</span>:
+                <br><code>1_000_000</code> vs <code>1000000</code>
+              </label>
+            </div>
+            <div class="sometimes">
+              <article class="fragment" style="top: 50px; right: 5px;">Type Hinting</article>
+              <label data-below data-left style="width: 500px; top: 70px; right: 230px;">
+                Improves <span class="highlight">documentation</span> and
+                <span class="highlight">safety</span> of <span class="highlight">critical</span> code.
+                Some or all may be Everyday Python in the future.
+              </label>
+              <article class="fragment" style="bottom: 5px; left: 400px;"><code>lambda</code></article>
+              <label style="width: 540px; bottom: -125px; left: 160px;">
+                Conventional in languages like JS, but not Python.
+                Still a <span class="highlight">useful and versatile</span> tool
+                for simple sort keys, Pandas <code>apply</code>, etc.
+              </label>
+            </div>
+            <div class="never">
+              <article class="fragment" style="top: 60px; right: 40px;"><code>:=</code></article>
+              <label data-below data-left style="top: 85px; right: 90px;">
+                PEP 572 says to <span class="highlight">prefer <code>=</code></span> when either can be used.
+              </label>
+            </div>
+          </div>
+
+          <aside class="notes" data-markdown>
+            * To finish off constructing our When of Python, let's quickly run through a few more Python features
+            * [*`CLICK`*] List and dictionary comprehensions etc. are great,
+            * ...they should be used all the time
+            * [*`CLICK`*] Formatting large numbers with underscores makes them much easier to read,
+            * ...and there's barely any syntax to remember.
+            * [*`CLICK`*] Type Hinting; while it's helpful for documentation and type safety,
+            * ...the general opinion seems to be to only use it in critical code
+            * ...That said, it's possible some level of hinting will move into Everyday Python
+              in the future.
+            * [*`CLICK`*] While anonymous lambda functions are really common in a lot of other
+            languages, especially functional languages,
+            * ...they've never really been "Pythonic".
+            * ...That said, they still have their uses, so they're a situational tool.
+            * [*`CLICK`*] And finally, the "walrus" operator for assignment expressions
+            * ...should very rarely be used
+            * ...even its PEP says to prefer plain old equals wherever possible.
+            <!-- https://developer.wordpress.org/coding-standards/wordpress-coding-standards/php/ -->
+          </aside>
+        </section>
+
+        <section>
+          <h3>The <span class="highlight">When</span> of Python</h3>
+
+          <div class="when-of-python no-faded">
+            <div class="always">
+            </div>
+            <div class="sometimes">
+            </div>
+            <div class="never">
+            </div>
+          </div>
+
+          <aside class="notes" data-markdown>
+            * [*`slow down`*]
+            * So here is the whole When of Python again.
+            * Hopefully that gives a sense of where we're heading
+              with the idea of constructing a "When of Python"
+            * But if you disagree with any of these points, feel free to tell us why after
+          </aside>
+        </section>
+
+        <section>
+           <h3 style="font-size: calc(var(--r-heading3-size) * 0.9);">How we made those decisions</h3>
+
+           <ol>
+             <li class="fragment"><span class="highlight">Cull alternatives</span> (create "one obvious way")
+               <ul>
+                 <li>Keep the simple</li>
+                 <li>Prefer versatility</li>
+                 <li>Remove the unsafe</li>
+               </ul>
+             </li>
+             <li class="fragment"><span class="highlight">Shrink Python</span> (define Everyday Python)
+               <ul>
+                 <li>Prioritise common programming needs</li>
+                 <li>Prefer easy to learn/remember</li>
+               </ul>
+             </li>
+           </ol>
+
+           <aside class="notes" data-markdown>
+             * Now let's take a step back and look at some principles
+               we used to arrange features in our When of Python
+             * [*`CLICK`*] Firstly, where multiple approaches existed for a particular task,
+             * ...we aimed to keep only one approach in Everday Python,
+             * ...and we preferred approaches that are simple, versatile, and safe to use.
+             * [*`CLICK`*] Secondly, to achieve our goal of a simple Everyday
+             Python,
+             * ...we had to constrict Python.
+             * ...Doing so required prioritising the common needs of programmers
+             * ...and preferring features that are easy to learn and remember.
+           </aside>
+        </section>
+
+        <section>
+          <h3 style="font-size: calc(var(--r-heading3-size) * 0.9);">Out with the old, in with the new?</h3>
+
+          <ul>
+            <li class="fragment">Often new approaches <span class="highlight">obsolete the old</span>:
+              <ul>
+                <li>f-strings</li>
+                <li>Data Classes</li>
+              </ul>
+            </li>
+            <li class="fragment">But sometimes extensions <span class="highlight">add complexity</span>:
+              <ul>
+                <li><code>asyncio</code></li>
+              </ul>
+            </li>
+            <li class="fragment">Or <span class="highlight">come with risks</span> if not used very carefully:
+              <ul>
+                <li>Structural Pattern Matching</li>
+              </ul>
+            </li>
+          </ul>
+
+          <aside class="notes" data-markdown>
+            * It's interesting to consider whether the most recent Python
+              features are always the best fit for Everyday Python
+            * [*`CLICK`*] In some cases new features provide an all-around better
+              experience for developers.
+            * [*`CLICK`*] But sometimes new features aren't worth the cost of their additional
+            complexity for them to be included in Everyday Python.
+            * [*`CLICK`*] Some new features can actually be dangerous if you don't learn them properly and completely.
+            * So it's not just a case of "new features bad"; or "new features good"
+            * Some features are like medicine
+            * ...they're only good when used strictly as appropriate
+            * [*`Switch to Grant`*]
+          </aside>
+        </section>
+
+        <section>
+          <h3>Where to from here?</h3>
+
+          <p class="fragment" style="text-align: left;">
+            &rightarrow; Wide collaboration
+            <br><span class="fragment">&emsp;&emsp;&rightarrow; Consensus</span>
+            <br><span class="fragment">&emsp;&emsp;&emsp;&emsp;&rightarrow; Standardisation</span>
+          </p>
+
+            <div class="fragment">
+              <p>
+                A perfect job for the <span class="highlight">Python Steering Council</span>:
+              </p>
+              <blockquote style="width: 80%;">
+                Maintain the <span class="highlight">quality and stability</span> of the Python language&hellip;
+                <span class="highlight">Seek consensus</span> among contributors and the core team &horbar; PEP 13
+              </blockquote>
+            </div>
+
+          <aside class="notes" data-markdown>
+            * [*`Switch to Grant`*]
+            * So where to from here for the When of Python?
+            * [*`CLICK`*] We need to start getting input from a wide range of Python users
+            * [*`CLICK`*] and eventually build toward a consensus
+            * ... for what the When of Python should look like
+            * [*`CLICK`*] then finally, we can adopt and standardise it
+            * [*`CLICK`*] This sounds like a perfect job for the Python Steering Council,
+              * ... which took over responsibility for the design of Python from Guido
+          </aside>
+        </section>
+
+        <section>
+          <h3>How about a PEP?</h3>
+
+          <iframe src="./pep-21-the-when-of-python.html" width="900px" height="500px"
+                  style="border: 3px solid #333333; -ms-zoom: 0.9; -moz-transform: scale(0.9); -o-transform: scale(0.9); -webkit-transform: scale(0.9);"></iframe>
+
+          <aside class="notes" data-markdown>
+            * The steering council could standardise a When of Python as a PEP
+            * It could then act as a living standard, like PEP 8.
+            * ... PEPs for new features could include recommendations
+            * ... for how The When of Python should be updated,
+            * ... encouraging authors to think through
+            * ... how their additions should affect Everyday Python.
+          </aside>
+        </section>
+
+        <section>
+          <p>Python has a strong history of using <span class="highlight">constructs</span> to:</p>
+          <ul>
+            <li class="fragment">Reduce disagreements</li>
+            <li class="fragment">Not leave convention to chance</li>
+          </ul>
+
+          <h3 class="fragment" style="margin-top: 50px;">The <span class="highlight">When of Python</span> should be the next Python <span class="highlight">construct</span></h3>
+
+          <aside class="notes" data-markdown>
+            * As Chris's keynote highlighted, Python has effectively used language constructs to:
+            * [*`CLICK`*] ... reduce disagreements in the community
+            * [*`CLICK`*] ... and not leave conventions to chance
+            * [*`CLICK`*] We see the When of Python as continuing on that legacy,
+            * ... by being the next Python construct
+          </aside>
+        </section>
+
+        <section>
+          <h3 style="font-size: 1.3em;">Why not just leave it to convention?</h3>
+
+          <ul style="font-size: 0.95em;">
+            <li class="fragment">Python is <span class="highlight">no longer a single, cohesive community</span>
+              <ul>
+                <li class="fragment">Conventions are <span class="highlight">slower to spread</span> organically</li>
+                <li class="fragment">Conventions may <span class="highlight">diverge</span>, creating <span class="highlight">confusion</span></li>
+              </ul>
+            </li>
+          </ul>
+
+          <h3 style="margin-top: 40px;" class="fragment"><span class="highlight">Explicit guidance</span> is better than <span class="highlight">implicit convention</span></h3>
+
+          <aside class="notes" data-markdown>
+            * But why not just leave Python's usage up to community convention?
+            * [*`CLICK`*] Python is no longer a niche, enthusiast language with a tight community
+            * ... - you have scripters, web developers, scientists, and so on
+            * [*`CLICK`*] So we can't wait for clear conventions to slowly emerge organically
+            * [*`CLICK`*] Different sub-communities may adopt different conventions,
+            * ... leading to widespread confusion
+            * [*`CLICK`*] Having explicit guidance from Python's top
+            * ... sends a clear message to teachers, writers, bloggers, Stack Overflowers, etc.
+            * Explicit guidance is better than implicit convention
+          </aside>
+        </section>
+
+        <section>
+          <h3>What are current Python conventions?</h3>
+
+          <div class="fragment">
+            <h4 style="font-size: 2em;" class="highlight">We decided to look!</h4>
+
+            <ul style="font-size: 0.9em;">
+              <li>Cloned recently updated Python repos from GitHub</li>
+              <li>Searched the ASTs of Python files for feature usage</li>
+              <li>Looked at 1000s of repos over various explorations</li>
+              <li>We'll release our code soon - when it's tidier :-)</li>
+            </ul>
+          </div>
+
+          <aside class="notes" data-markdown>
+            * All of this got us wondering,
+            * ... what *are* the real Python conventions out there in the wild today?
+            * [*`CLICK`*] So we decided to take a look
+            * We scraped GitHub for a whole bunch of recently updated Python repos
+            * ... and searched abstract syntax trees for various Python features
+            * We actually had quite a lot of fun seeing what was out there,
+            * ... so we'll be releasing the code we used soon
+            * ... in case anyone else wants to try it out too
+          </aside>
+        </section>
+
+        <style>
+         table.bar-chart {
+             width: 100%;
+             margin-top: 35px;
+             font-size: 0.55em;
+         }
+         table.bar-chart td {
+             width: 16%;
+             text-align: center;
+         }
+         table.bar-chart .bar-container {
+             height: 300px;
+             vertical-align: bottom;
+         }
+         table.bar-chart .bar-container .bar {
+             position: relative;
+         }
+         table.bar-chart .bar-container .bar .bar-fragment {
+             width: 80px;
+             background: var(--r-link-color);
+             position: absolute;
+             bottom: 0;
+             left: 50%;
+             transform: translate(-50%, 0);
+         }
+         table.bar-chart .bar-container .bar .bar-fragment.fragment {
+             opacity: 1;
+             visibility: visible;
+             height: 0 !important;
+         }
+         table.bar-chart .bar-container .bar .bar-fragment.fragment.visible {
+             height: 100% !important;
+         }
+         table.bar-chart .bar-container .bar .bar-fragment .percentage {
+             position: relative;
+             top: -45px;
+             font-size: 1.4em;
+         }
+        </style>
+        <section>
+          <h3>Python Feature Usage</h3>
+
+          <table class="bar-chart">
+            <tr>
+              <td class="bar-container">
+                <div class="bar" style="height: 90%;">
+                  <div class="fragment bar-fragment" data-fragment-index="1" style="transition: all 1.80s linear;">
+                    <div class="fragment percentage" data-fragment-index="1" style="transition-delay: 1.80s">30%
+                    </div>
+                  </div>
+              </td>
+              <td class="bar-container">
+                <div class="bar" style="height: 24%;">
+                  <div class="fragment bar-fragment" data-fragment-index="4" style="transition: all 0.48s linear;">
+                    <div class="fragment percentage" data-fragment-index="4" style="transition-delay: 0.48s">8%</div>
+                  </div>
+              </td>
+              <td class="bar-container">
+                <div class="bar" style="height: 18%;">
+                  <div class="fragment bar-fragment" data-fragment-index="6" style="transition: all 0.36s linear;">
+                    <div class="fragment percentage" data-fragment-index="6" style="transition-delay: 0.36s">6%</div>
+                  </div>
+              </td>
+              <td class="bar-container">
+                <div class="bar" style="height: 90%;">
+                  <div class="fragment bar-fragment" data-fragment-index="8" style="transition: all 1.80s linear;">
+                    <div class="fragment percentage" data-fragment-index="8" style="transition-delay: 1.80s">30%</div>
+                  </div>
+              </td>
+              <td class="bar-container">
+                <div class="bar" style="height: 24%;">
+                  <div class="fragment bar-fragment" data-fragment-index="10" style="transition: all 0.48s linear;">
+                    <div class="fragment percentage" data-fragment-index="10" style="transition-delay: 0.48s">8%</div>
+                  </div>
+              </td>
+              <td class="bar-container">
+                <div class="bar" style="height: 12%;">
+                  <div class="fragment bar-fragment" data-fragment-index="13" style="transition: all 0.36s linear;">
+                    <div class="fragment percentage" data-fragment-index="13" style="transition-delay: 0.36s">4%</div>
+                  </div>
+              </td>
+            </tr>
+            <tr>
+              <td class="fragment" data-fragment-index="1"><code>datetime</code></td>
+              <td class="fragment" data-fragment-index="3"><code>for else</code></td>
+              <td class="fragment" data-fragment-index="5"><code>dataclasses</code></td>
+              <td class="fragment" data-fragment-index="7">Type-hinting</td>
+              <td class="fragment" data-fragment-index="9"><code>asyncio</code></td>
+              <td class="fragment" data-fragment-index="12"><code>concurrent futures</code></td>
+            </tr>
+          </table>
+          <label class="fragment" data-fragment-index="11" style="width: 300px; bottom: 200px; right: 0px;">
+            And that's excluding <code>github-stats</code> repos
+          </label>
+
+          <aside class="notes" data-markdown>
+            * So, what did we find?
+            * [*`CLICK`*] Firstly, to set a baseline,
+            * ... we wanted to look at how often you'd see a reasonably essential module used
+            * ... so we had a look at the standard library datetime module,
+            * ... and we found that about a third of repos use it.
+            * [*`CLICK`*] Next, we looked at `for else`
+            * [*`CLICK`*] Despite Guido saying he'd remove it with a time machine,
+            * ... about 1 in 10 active Python GitHub repos still appear to be using it!
+            * [*`CLICK`*] Then we wanted to see how often dataclasses are used.
+            * ... They were only added four years ago,
+            * ... but given their usefulness we'd expect them to be fairly frequently used,
+            * ... especially in the recently updated repos we're scraping
+            * [*`CLICK`*] But they're not even used as often as `for else`!
+            * [*`CLICK`*] Type-hinting has only been with us 3 more years than dataclasses
+            * [*`CLICK`*] and yet it has been much more widely adopted
+            * [*`CLICK`*] Finally, we wanted to see how often you might come across asyncio
+            * ... and all the new syntax it brings with it
+            * [*`CLICK`*] And we were pretty surprised to find it was used in over 10% of repos!
+            * ... That means, if you're just learning Python,
+            * ... and your friend shows you a Python GitHub repo they're working on,
+            * ... there's a 1 in 10 chance you're going to come across asyncio
+            * [*`CLICK`*] And that's excluding the copy-pasted stats code that everyone puts on their GitHub profile,
+            * ... which happens to use asyncio
+            * [*`CLICK`*] To put that in perspective, we also looked at concurrent futures,
+            * ... which is the simplest concurrency option for a large number of cases,
+            * ... maybe even most
+            * [*`CLICK`*] It wasn't used even half as often as asyncio
+          </aside>
+        </section>
+
+        <section>
+          <h3 style="font-size: 1.4em;">What's using so much <code>asyncio</code>?</h3>
+
+          <div class="r-stack">
+            <img style="width: 70%;" src="img/Python-Concurrency-API-Decision-Tree.webp" alt="Picture of Python concurrency decision tree">
+            <img class="fragment" style="width: 70%;" src="img/highlighted-async-flowchart.png" alt="Picture of Python concurrency decision tree, highlighting small branch for asyncio.">
+          </div>
+
+          <aside class="notes" data-markdown>
+            * This got us wondering even more,
+            * ... what are so many projects using asyncio for?
+            * [*`CLICK`*] bearing in mind that existing learning material suggests that its complexity is rarely needed?
+          </aside>
+        </section>
+
+        <section>
+          <h3 style="font-size: 1.4em;">What's using so much <code>asyncio</code>?</h3>
+
+          <div style="font-size: 0.9em;">
+          <p>We reviewed &gt;100 repos with &gt;100 stars using <code>asyncio</code>:</p>
+          <ul>
+            <li class="fragment"><span class="highlight">62%</span> appear to have a <span class="highlight">strong case</span> for using <code>asyncio</code></li>
+            <li class="fragment"><span class="highlight">17%</span> are <span class="highlight">supporting or testing</span> for <code>asyncio</code></li>
+            <li class="fragment"><span class="highlight">18%</span> probably <span class="highlight">don't <em>need</em></span> <code>asyncio</code></li>
+          </ul>
+          </div>
+
+          <aside class="notes" data-markdown>
+            * To get a feel for asyncio's usage,
+            * ... we drilled into 100 fairly popular repos with over 100 stars
+            * [*`CLICK`*] and about two thirds seemed to have good reasons for using asyncio
+            * ... be it setting up socket servers or providing async APIs to services
+            * [*`CLICK`*] However, almost a fifth seem to be not primarily focussed on async,
+            * ... but are providing asyncio-compatible interfaces
+            * [*`CLICK`*] and almost another fifth seem to be using asyncio in a simple context
+            * ... where concurrent futures might have achieved the same goal with simpler code,
+            * ... such as running requests or processes in parallel
+            * So overall, there's a lot of asyncio usage out there,
+            * ... and it seems like much of it could be a lot simpler
+            * And this is just looking at the popular repos with at least 100 stars,
+            * ... there might be a lot more asyncio usage in the rest
+            * ... that could be replaced with concurrent futures
+          </aside>
+        </section>
+
+        <section>
+          <h3 style="font-size: 1.9em;">
+            A <span class="highlight">When of Python</span> could help <span class="highlight">fix these stats</span>
+          </h3>
+
+          <aside class="notes" data-markdown>
+            * A When of Python could help fix these stats
+          </aside>
+        </section>
+
+        <section>
+          <h3 style="font-size: 1.55em;"><span class="highlight">Monitoring</span> how a language is used could be a <span class="highlight">game-changer</span> for language design</h3>
+
+          <ul style="font-size: 0.9em;">
+            <li class="fragment"><span class="highlight">Understand conventions</span> &ndash; don't just ask, look as well</li>
+            <li class="fragment"><span class="highlight">Spot splintering</span> to target community outreach</li>
+            <li class="fragment"><span class="highlight">Measure effectiveness</span> of language guidance</li>
+          </ul>
+
+          <p class="fragment" style="font-weight: bold;">There currently seems to be <span class="highlight">no such coordinated monitoring</span> of Python usage</p>
+
+          <aside class="notes" data-markdown>
+            * We also feel like we've barely scratched the surface with this analysis
+            * Language design no longer needs to make judgements in isolation,
+            * [*`CLICK`*] ... but can now reflect on how users make use of Python
+            * [*`CLICK`*] You could identify diverging conventions between communities,
+            * ... and respond proactively
+            * [*`CLICK`*] and you could see what impact
+            * ... community guidance like a When of Python
+            * ... is actually having on Python users
+            * [*`CLICK`*] There currently doesn't seem to be
+            * ... any consistent monitoring of Python usage in the wild,
+            * ... and we think that could be another real opportunity for the Steering Council
+            <!-- https://peps.python.org/pep-0572/ -->
+          </aside>
+        </section>
+
+        <style>
+         .fragment-crossout {
+             visibility: visible !important;
+             opacity: 1 !important;
+         }
+         .fragment-crossout.visible {
+             text-decoration: line-through;
+         }
+        </style>
+        <section>
+          <h3 style="font-size: 1.4em;">Asking <span class="highlight">"When?"</span> makes language decisions <span class="highlight">easier</span></h3>
+
+          <div class="fragment" data-fragment-index="1" style="display: flex; flex-direction: row; justify-content: center; font-size: 1.2em; margin: 70px 0;">
+            <div>
+              New feature? &rightarrow;&nbsp;
+            </div>
+            <div style="text-align: left;">
+              <span class="highlight"><span class="fragment fragment-crossout" data-fragment-index="2">Yes <span style="color: white;">or</span> No</span></span>
+              <br><span class="highlight"><span class="fragment" data-fragment-index="2">When <span style="color: white;">or</span> No</span></span>
+            </div>
+          </div>
+
+          <p class="fragment">Language features can be added for niche uses <span class="highlight">without expanding Everyday Python</span></p>
+
+          <aside class="notes" data-markdown>
+            * And in fact, we believe the When of Python
+            * ... could actually make the Steering Council's task of language design
+            * ... *easier* and less fraught
+            * [*`CLICK`*] Instead of deciding between Yes or No for a new feature
+            * [*`CLICK`*] instead we could be deciding between When or No
+            * [*`CLICK`*] Decisions no longer have to be a blanket Yes
+            * ... - not everything that is added belongs in Everyday Python
+          </aside>
+        </section>
+
+        <section>
+          <h2 style="font-size: 4em;"><span class="highlight">When</span> or <span class="highlight">No</span></h2>
+
+          <aside class="notes" data-markdown>
+            * In summary, the choice is "When or No"
+            * [*`Switch to Ben`*]
+          </aside>
+        </section>
+
+        <section>
+          <h3>Where else to ask <span class="highlight">"When?"</span></h3>
+
+          <ul>
+            <li class="fragment">
+              Project/team style guides
+            </li>
+            <li class="fragment">
+              Teaching material
+            </li>
+            <li class="fragment">
+              Blog posts
+            </li>
+          </ul>
+
+          <div class="fragment">
+            <blockquote style="margin-bottom: 0;">
+              Docs and blog posts too often focus on
+              <span class="underline">how</span> to use rather
+              than <span class="highlight">when</span>
+            </blockquote>
+            <p style="font-size: 0.7em; margin-top: 10px;">
+              &horbar; Brandon Rhodes, code::dive 2019, regarding <code>Mock</code>
+            </p>
+          </div>
+
+          <aside class="notes" data-markdown>
+            * [*`Switch to Ben`*]
+            * We also believe that asking When Python features should be used
+              is important in other contexts as well
+            * For example:
+            * [*`CLICK`*] in your project or team's style guide,
+            * [*`CLICK`*] in teaching material,
+            * [*`CLICK`*] or in blog posts.
+            * [*`CLICK`*] Brandon Rhodes, a respected voice in the Python community,
+            * ...recently highlighted how much has been written on "how" to use Mocks for testing,
+            * ...and how little has been written on "when" they should be used.
+            * In general, blogs should put more emphasis on **when to** and **when NOT to** use features,
+            * ...alongside discussion of how to use those features
+          </aside>
+        </section>
+
+        <section>
+          <h3 style="font-size: calc(var(--r-heading3-size) * 0.95);">
+            Why stop at language features?
+          </h3>
+          <ul>
+            <li class="fragment">
+              <span class="highlight">When</span> to use libraries/frameworks?
+            </li>
+            <li class="fragment">
+              <span class="highlight">When</span> to test?
+            </li>
+            <li class="fragment">
+              <span class="highlight">When</span> to document?
+            </li>
+          </ul>
+
+          <aside class="notes" data-markdown>
+            * And why stop at language features?
+            * We can help define best practices for ourselves and others
+              by deciding:
+              * [*`CLICK`*] When to use different libraries
+              * [*`CLICK`*] When to use different approaches to testing
+              * [*`CLICK`*] and When to write different kinds of documentation
+          </aside>
+        </section>
+
+        <section>
+          <h3>Takeaways</h3>
+          <ul style="font-size: 0.95em;">
+            <li class="fragment">
+              Python isn't as <span class="highlight">simple</span> as it used to be
+            </li>
+            <li class="fragment">
+              <span class="highlight">Language creep</span> could cost Python its popularity
+            </li>
+            <li class="fragment">
+              We need to <span class="highlight">constrict Everyday Python</span> without giving up useful features
+            </li>
+            <li class="fragment">
+              Adopting a <span class="highlight">When of Python</span> would simplify Python for beginners and experienced developers alike
+            </li>
+            <li class="fragment">
+              Asking "<span class="highlight">When</span> or <span class="highlight">No</span>" could even make language decisions easier
+            </li>
+          </ul>
+
+          <aside class="notes" data-markdown>
+            * Finally, to summarise what we've looked at today:
+            * [*`CLICK`*] Python isn't as simple as it used to be
+            * [*`CLICK`*] Language creep could cost Python its popularity
+            * [*`CLICK`*] We need to constrict Everyday Python without giving up useful features
+            * [*`CLICK`*] By adopting a When of Python, we can simplify Python
+            * ...for both beginners and experienced developers
+            * [*`CLICK`*] Being able to ask "When or No"
+            * ...could even make future language design decisions easier and less fraught
+          </aside>
+        </section>
+
+        <section>
+          <h3>Thanks for Listening</h3>
+          <h4>Thoughts? Questions? Opinions?</h4>
+          <div class="when-of-python no-faded">
+            <div class="always">
+            </div>
+            <div class="sometimes">
+            </div>
+            <div class="never">
+            </div>
+          </div>
+
+          <aside class="notes" data-markdown>
+            * Thanks very much for listening
+            * We'd love to hear your questions and opinions
+            * Is there anything you'd do differently? Anything you'd like to add?
+            * EXTRA NOTES BELOW
+            * 2155 repos in final analysis
+          </aside>
+        </section>
+
+      </div>
+    </div>
+
+    <script src="vendor/jquery-3.6.0.min.js"></script>
+    <script src="dist/reveal.js"></script>
+    <script src="plugin/notes/notes.js"></script>
+    <script src="plugin/markdown/markdown.js"></script>
+    <script src="plugin/highlight/highlight.js"></script>
+    <script>
+     // More info about initialization & config:
+     // - https://revealjs.com/initialization/
+     // - https://revealjs.com/config/
+     Reveal.initialize({
+       hash: true,
+       transition: 'none',
+       progress: false,
+       controls: false,
+
+       // Learn about plugins: https://revealjs.com/plugins/
+       plugins: [ RevealMarkdown, RevealHighlight, RevealNotes ],
+       // Other configurations
+       dependencies: [
+         // Other plugins
+       ]
+     });
+    </script>
+    <script>
+     (function($) {
+
+       let tiers = ['always', 'sometimes', 'never'];
+       let whenArticles = [];
+       $('.when-of-python').each(function() {
+         let whenContainer = this;
+         tiers.forEach(function(tier) {
+           let tierContainer = $(whenContainer).find(`.${tier}`).get(0);
+           $(tierContainer).find('article').each(function() {
+             whenArticles.push({
+               'tier': tier,
+               'originalTierContainer': tierContainer,
+               'element': this
+             });
+           });
+         });
+       });
+
+       $('.when-of-python').each(function() {
+         let whenContainer = this;
+
+         tiers.forEach(function(tier) {
+           let tierContainer = $(whenContainer).find(`.${tier}`).get(0);
+           whenArticles.forEach(function(article) {
+             if (
+               (article['tier'] == tier) &&
+               (article['originalTierContainer'] != tierContainer)
+             ) {
+               $(article['element'])
+                 .clone()
+                 .removeClass(['fragment', 'current-fragment'])
+                 .addClass('faded')
+                 .appendTo(tierContainer);
+             }
+           });
+         });
+
+         $(whenContainer).find('label').each(function() {
+           let targetArticle = $(this).prev('article');
+
+           if (targetArticle.is('.fragment')) {
+             $(this).addClass('fragment');
+             if (targetArticle.is('.visible')) {
+               $(this).addClass('visible');
+             }
+             if (targetArticle.is('.current-fragment')) {
+               $(this).addClass('current-fragment');
+             }
+             $(this).attr('data-fragment-index', targetArticle.attr('data-fragment-index'));
+           }
+
+           if ($(this).is('[data-below][data-right]')) {
+             $(this).css('border-top-left-radius', 0);
+           }
+           else if ($(this).is('[data-below][data-left]')) {
+             $(this).css('border-top-right-radius', 0);
+           }
+           else if ($(this).is('[data-above][data-right]')) {
+             $(this).css('border-bottom-left-radius', 0);
+           }
+           else if ($(this).is('[data-above][data-left]')) {
+             $(this).css('border-bottom-right-radius', 0);
+           }
+         });
+       });
+     })(jQuery);
+    </script>
+  </body>
 </html>
